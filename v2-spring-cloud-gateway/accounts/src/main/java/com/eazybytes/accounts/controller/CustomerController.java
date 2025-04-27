@@ -2,12 +2,12 @@ package com.eazybytes.accounts.controller;
 
 import com.eazybytes.accounts.dto.*;
 import com.eazybytes.accounts.service.*;
-import com.eazybytes.accounts.service.impl.*;
 import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.media.*;
 import io.swagger.v3.oas.annotations.responses.*;
 import io.swagger.v3.oas.annotations.tags.*;
 import jakarta.validation.constraints.*;
+import org.slf4j.*;
 import org.springframework.http.*;
 import org.springframework.validation.annotation.*;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path="/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Validated
 public class CustomerController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     private final ICustomersService iCustomerService;
 
@@ -46,10 +48,11 @@ public class CustomerController {
     }
     )
     @GetMapping("/fetchCustomerDetails")
-    public ResponseEntity<CustomerDetailsDto> fetchCustomerDetails(@RequestParam
-                                                                   @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
+    public ResponseEntity<CustomerDetailsDto> fetchCustomerDetails(@RequestHeader("eazybank-correlation-id") String correlationId,
+                                                                   @RequestParam @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
                                                                    String mobileNumber){
-        CustomerDetailsDto customerDetailsDto = iCustomerService.fetchCustomerDetails(mobileNumber);
+        logger.debug("eazybank-correlation-id found: {}", correlationId);
+        CustomerDetailsDto customerDetailsDto = iCustomerService.fetchCustomerDetails(mobileNumber, correlationId);
         return ResponseEntity.status(HttpStatus.OK).body(customerDetailsDto);
     }
 

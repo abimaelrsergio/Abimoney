@@ -34,8 +34,9 @@ public class RequestTraceFilter implements GlobalFilter {
     private boolean isCorrelationIdPresent(HttpHeaders requestHeaders){
         if (filterUtility.getCorrelationId(requestHeaders) != null) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     private String generateCorrelationId(){
