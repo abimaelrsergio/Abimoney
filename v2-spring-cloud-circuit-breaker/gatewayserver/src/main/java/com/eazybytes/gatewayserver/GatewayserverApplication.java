@@ -1,7 +1,11 @@
 package com.eazybytes.gatewayserver;
 
+import io.github.resilience4j.circuitbreaker.*;
+import io.github.resilience4j.timelimiter.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.circuitbreaker.resilience4j.*;
+import org.springframework.cloud.client.circuitbreaker.*;
 import org.springframework.cloud.gateway.route.*;
 import org.springframework.cloud.gateway.route.builder.*;
 import org.springframework.context.annotation.*;
@@ -41,5 +45,12 @@ public class GatewayserverApplication {
 								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
 						.uri("lb://CARDS"))
 				.build();
+	}
+
+	@Bean
+	public Customizer<ReactiveResilience4JCircuitBreakerFactory> defaultCustomizer() {
+		return factory -> factory.configureDefault(id -> new Resilience4JConfigBuilder(id)
+				.circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
+				.timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(5)).build()).build());
 	}
 }
