@@ -3,6 +3,7 @@ package com.eazybytes.accounts.controller;
 import com.eazybytes.accounts.constants.AccountsConstants;
 import com.eazybytes.accounts.dto.*;
 import com.eazybytes.accounts.service.IAccountsService;
+import io.github.resilience4j.retry.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,7 +34,7 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class AccountsController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
 
     private final IAccountsService iAccountsService;
 
@@ -196,11 +197,21 @@ public class AccountsController {
             )
     }
     )
+    @Retry(name = "getBuildInfo", fallbackMethod = "getBuildInfoFallback")
     @GetMapping("/build-info")
     public ResponseEntity<String> getBuildInfo(){
+        logger.debug("getBuildInfo() method Invoked");
+        throw new NullPointerException();
+        /*return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);*/
+    }
+
+    public ResponseEntity<String> getBuildInfoFallback(Throwable throwable){
+        logger.debug("getBuildInfoFallback() method Invoked");
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(buildVersion);
+                .body("0.9");
     }
 
     @Operation(
