@@ -195,3 +195,5 @@ README.html
 *.iml
 .idea
 .exercism
+**.data/minio/
+.v2-spring-cloud-grafana/docker-compose/prod/.data/minio/
