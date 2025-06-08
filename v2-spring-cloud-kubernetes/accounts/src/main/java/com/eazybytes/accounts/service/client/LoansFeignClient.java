@@ -5,8 +5,7 @@ import org.springframework.cloud.openfeign.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-// Same name used in Erureka Dashboard
-@FeignClient(name = "loans", fallback = LoansFallback.class)
+@FeignClient(name = "loans", url = "http://loans:8090", fallback = LoansFallback.class)
 public interface LoansFeignClient {
 
     @GetMapping(value = "/api/fetch", consumes = "application/json")
