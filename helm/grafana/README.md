@@ -20,6 +20,8 @@ Looking to use Grafana in production? Try [VMware Tanzu Application Catalog](htt
 
 This chart bootstraps a [grafana](https://github.com/bitnami/containers/tree/main/bitnami/grafana) deployment on a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
+Bitnami charts can be used with [Kubeapps](https://kubeapps.dev/) for deployment and management of Helm Charts in clusters.
+
 ## Differences between the Bitnami Grafana chart and the Bitnami Grafana Operator chart
 
 In the Bitnami catalog we offer both the bitnami/grafana and bitnami/grafana-operator charts. Each solution covers different needs and use cases.
@@ -408,11 +410,9 @@ See the [Parameters](#parameters) section to configure the PVC or to disable per
 | `extraDeploy`       | Array of extra objects to deploy with the release                                       | `[]`            |
 | `nameOverride`      | String to partially override grafana.fullname template (will maintain the release name) | `""`            |
 | `fullnameOverride`  | String to fully override grafana.fullname template                                      | `""`            |
-| `namespaceOverride` | String to fully override common.names.namespace                                         | `""`            |
 | `clusterDomain`     | Default Kubernetes cluster domain                                                       | `cluster.local` |
 | `commonLabels`      | Labels to add to all deployed objects                                                   | `{}`            |
 | `commonAnnotations` | Annotations to add to all deployed objects                                              | `{}`            |
-| `usePasswordFiles`  | Mount credentials as files instead of using environment variables                       | `true`          |
 
 ### Grafana parameters
 
@@ -545,9 +545,7 @@ See the [Parameters](#parameters) section to configure the PVC or to disable per
 | `grafana.extraVolumes`                                      | Additional volumes for the Grafana pod                                                                                                                                                                                            | `[]`             |
 | `grafana.extraVolumeMounts`                                 | Additional volume mounts for the Grafana container                                                                                                                                                                                | `[]`             |
 | `grafana.extraEnvVarsCM`                                    | Name of existing ConfigMap containing extra env vars for Grafana nodes                                                                                                                                                            | `""`             |
-| `grafana.extraEnvVarsCMOptional`                            | Whether to still run the Grafana node if the ConfigMap does not exist                                                                                                                                                             | `false`          |
 | `grafana.extraEnvVarsSecret`                                | Name of existing Secret containing extra env vars for Grafana nodes                                                                                                                                                               | `""`             |
-| `grafana.extraEnvVarsSecretOptional`                        | Whether to still run the Grafana node if the Secret does not exist                                                                                                                                                                | `false`          |
 | `grafana.extraEnvVars`                                      | Array containing extra env vars to configure Grafana                                                                                                                                                                              | `[]`             |
 | `grafana.extraConfigmaps`                                   | Array to mount extra ConfigMaps to configure Grafana                                                                                                                                                                              | `[]`             |
 | `grafana.command`                                           | Override default container command (useful when using custom images)                                                                                                                                                              | `[]`             |
@@ -767,7 +765,7 @@ This major version signifies this change.
 
 ## License
 
-Copyright &copy; 2025 Broadcom. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright &copy; 2024 Broadcom. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -22,6 +22,8 @@ Bitnami charts for Helm are carefully engineered, actively maintained and are th
 
 This chart bootstraps a [Grafana Loki](https://github.com/grafana/loki) Deployment in a [Kubernetes](https://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
+Bitnami charts can be used with [Kubeapps](https://kubeapps.dev/) for deployment and management of Helm Charts in clusters.
+
 ## Prerequisites
 
 - Kubernetes 1.23+
@@ -448,7 +450,6 @@ The [Bitnami grafana-loki](https://github.com/bitnami/containers/tree/main/bitna
 | `gateway.service.externalTrafficPolicy`         | Gateway service external traffic policy                                                                                          | `Cluster`                |
 | `gateway.service.annotations`                   | Additional custom annotations for Gateway service                                                                                | `{}`                     |
 | `gateway.service.extraPorts`                    | Extra ports to expose in the Gateway service                                                                                     | `[]`                     |
-| `gateway.service.nginx.config`                  | to override configurations i.e (client_max_body_size) in nginx http block                                                        | `""`                     |
 | `gateway.networkPolicy.enabled`                 | Specifies whether a NetworkPolicy should be created                                                                              | `true`                   |
 | `gateway.networkPolicy.allowExternal`           | Don't require server label for connections                                                                                       | `true`                   |
 | `gateway.networkPolicy.allowExternalEgress`     | Allow the pod to access any range of port and all destinations.                                                                  | `true`                   |
@@ -1032,7 +1033,6 @@ The [Bitnami grafana-loki](https://github.com/bitnami/containers/tree/main/bitna
 
 | Name                                                               | Description                                                                                                                                                                                                                                     | Value            |
 | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `queryScheduler.enabled`                                           | Deploy Query Scheduler component                                                                                                                                                                                                                | `false`          |
 | `queryScheduler.extraEnvVars`                                      | Array with extra environment variables to add to queryScheduler nodes                                                                                                                                                                           | `[]`             |
 | `queryScheduler.extraEnvVarsCM`                                    | Name of existing ConfigMap containing extra env vars for queryScheduler nodes                                                                                                                                                                   | `""`             |
 | `queryScheduler.extraEnvVarsSecret`                                | Name of existing Secret containing extra env vars for queryScheduler nodes                                                                                                                                                                      | `""`             |
@@ -1645,7 +1645,7 @@ Additionally updates the Memcached subchart to its newest major `6.x.x`, which c
 
 ## License
 
-Copyright &copy; 2025 Broadcom. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
+Copyright &copy; 2024 Broadcom. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

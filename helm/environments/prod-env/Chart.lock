@@ -24,4 +24,4 @@ dependencies:
   repository: file://../../eazybank-services/message
   version: 0.1.0
 digest: sha256:d9aec855311f72286a711322734358fd90d61e7ab0e8ef80dea05b637e020544
-generated: "2025-06-07T17:34:48.1176088-03:00"
+generated: "2023-09-01T12:06:31.531688+05:30"

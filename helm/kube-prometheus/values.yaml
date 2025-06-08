@@ -78,7 +78,7 @@ operator:
   image:
     registry: docker.io
     repository: bitnami/prometheus-operator
-    tag: 0.83.0-debian-12-r2
+    tag: 0.79.2-debian-12-r0
     digest: ""
     ## Specify a imagePullPolicy
     ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
@@ -638,7 +638,7 @@ prometheus:
   image:
     registry: docker.io
     repository: bitnami/prometheus
-    tag: 3.4.1-debian-12-r1
+    tag: 2.55.1-debian-12-r4
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -649,45 +649,6 @@ prometheus:
     ##   - myRegistryKeySecretName
     ##
     pullSecrets: []
-  ## @param prometheus.defaultRules.create Create default rules for Prometheus
-  ## @param prometheus.defaultRules.rules [object] Set of default rules for Prometheus that can be enabled/disabled
-  ##
-  defaultRules:
-    create: true
-    rules:
-      alertmanager: true
-      etcd: true
-      configReloaders: true
-      general: true
-      k8sContainerCpuUsageSecondsTotal: true
-      k8sContainerMemoryCache: true
-      k8sContainerMemoryRss: true
-      k8sContainerMemorySwap: true
-      k8sContainerResource: true
-      k8sContainerMemoryWorkingSetBytes: true
-      k8sPodOwner: true
-      kubeApiserverAvailability: true
-      kubeApiserverBurnrate: true
-      kubeApiserverHistogram: true
-      kubeApiserverSlos: true
-      kubeControllerManager: true
-      kubelet: true
-      kubeProxy: true
-      kubePrometheusGeneral: true
-      kubePrometheusNodeRecording: true
-      kubernetesApps: true
-      kubernetesResources: true
-      kubernetesStorage: true
-      kubernetesSystem: true
-      kubeSchedulerAlerting: true
-      kubeSchedulerRecording: true
-      kubeStateMetrics: true
-      network: true
-      node: true
-      nodeExporterAlerting: true
-      nodeExporterRecording: true
-      prometheus: true
-      prometheusOperator: true
   ## Service account for Prometheus to use.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
   ##
@@ -1256,10 +1217,6 @@ prometheus:
   ## @param prometheus.logFormat Log format for Prometheus
   ##
   logFormat: logfmt
-  ## @param prometheus.nameValidationScheme Specifies the validation scheme for metric and label names
-  ## See https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.NameValidationSchemeOptions
-  ##
-  nameValidationScheme: "UTF8"
   ## @param prometheus.podMetadata [object] Standard object's metadata
   ## ref: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata
   ##
@@ -1455,8 +1412,16 @@ prometheus:
                 "targets": ["gatewayserver:8072"]
               }
             ]
-       }        
+       }
       ]
+  ## @param prometheus.additionalScrapeConfigsExternal.enabled Deprecated: Enable additional scrape configs that are managed externally to this chart
+  ## @param prometheus.additionalScrapeConfigsExternal.name Deprecated: Name of the secret that Prometheus should use for the additional scrape configuration
+  ## @param prometheus.additionalScrapeConfigsExternal.key Deprecated: Name of the key inside the secret to be used for the additional scrape configuration
+  ##
+  additionalScrapeConfigsExternal:
+    enabled: false
+    name: ""
+    key: ""
   ## Enable additional Prometheus alert relabel configs that are managed externally to this chart
   ## Note that the prometheus will fail to provision if the correct secret does not exist.
   ## @param prometheus.additionalAlertRelabelConfigsExternal.enabled Enable additional Prometheus alert relabel configs that are managed externally to this chart
@@ -1495,7 +1460,7 @@ prometheus:
     image:
       registry: docker.io
       repository: bitnami/thanos
-      tag: 0.38.0-debian-12-r4
+      tag: 0.37.2-debian-12-r0
       digest: ""
       ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
       ##
@@ -1924,7 +1889,7 @@ alertmanager:
   image:
     registry: docker.io
     repository: bitnami/alertmanager
-    tag: 0.28.1-debian-12-r9
+    tag: 0.27.0-debian-12-r28
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -2613,7 +2578,7 @@ blackboxExporter:
   image:
     registry: docker.io
     repository: bitnami/blackbox-exporter
-    tag: 0.26.0-debian-12-r10
+    tag: 0.25.0-debian-12-r21
     digest: ""
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
